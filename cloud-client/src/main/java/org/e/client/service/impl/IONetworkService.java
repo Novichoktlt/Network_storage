@@ -50,7 +50,17 @@ public class IONetworkService implements NetworkService {
 
 
     @Override
-    public void textCommand(String command) {
+    public void textCommandClient(String command) {
+        try {
+            out.writeUTF(command);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void textCommandCloud(String command) {
         try {
             out.writeUTF(command);
             out.flush();
@@ -65,7 +75,7 @@ public class IONetworkService implements NetworkService {
             return in.readUTF();
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Результат при чтении команды" + e.getMessage());
+            throw new RuntimeException("Результат при чтении команды " + e.getMessage());
         }
     }
 

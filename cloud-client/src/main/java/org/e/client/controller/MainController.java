@@ -14,8 +14,10 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     public TextField commandTextFieldClient;
-    public TextArea commandResultTextAreaClient;
-
+    public TextField commandTextFieldCloud;
+    public TextArea commandTextAreaClient;
+    public TextArea commandTextAreaCloud;
+    public static int c = 0;
     private NetworkService networkService;
 
     @Override
@@ -28,14 +30,31 @@ public class MainController implements Initializable {
         new Thread(() -> {
             while (true){
                 String resultCommand = networkService.readCommandResult();
-                Platform.runLater(() -> commandResultTextAreaClient.appendText(resultCommand + System.lineSeparator()));
+                if (c == 1){
+
+                    Platform.runLater(() -> commandTextAreaCloud.appendText(resultCommand + System.lineSeparator()));
+                }
+                if (c == 2) {
+
+                    Platform.runLater(() -> commandTextAreaClient.appendText(resultCommand + System.lineSeparator()));
+                }
+                c = 0;
             }
         }).start();
+
     }
 
-    public void textCommand(ActionEvent event) {
-        networkService.textCommand(commandTextFieldClient.getText().trim());
-//        commandTextFieldClient.clear();
+    public void textCommandCloud(ActionEvent event) {
+        c = 1;
+        networkService.textCommandCloud(commandTextFieldCloud.getText().trim());
+        commandTextAreaCloud.clear();
+
+    }
+
+    public void textCommandClient(ActionEvent event) {
+        c = 2;
+        networkService.textCommandClient(commandTextFieldClient.getText().trim());
+        commandTextAreaClient.clear();
 
     }
 

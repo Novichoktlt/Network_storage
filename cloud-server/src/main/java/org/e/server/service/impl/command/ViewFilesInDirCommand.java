@@ -8,14 +8,18 @@ public class ViewFilesInDirCommand implements CommandService {
     @Override
     public String processCommand(String command) {
 
-        final  int requirementCountCommandPart = 2;
+        final int requirementCountCommandPart = 2;
 
         String[] actualCommandParts = command.split("\\s");
-        if(actualCommandParts.length != requirementCountCommandPart) {
-            throw  new IllegalArgumentException("Команда" + getCommand() + "не правельная");
+        if (actualCommandParts.length < requirementCountCommandPart) {
+            throw new IllegalArgumentException("Команда " + getCommand() + " не правельная");
         }
+        String actualCommand = actualCommandParts[1];
+        for (int i = 2; i < actualCommandParts.length; i++) {
 
-        return process(actualCommandParts[1]);
+            actualCommand = actualCommand + " " + actualCommandParts[i];
+        }
+        return process(actualCommand);
     }
 
     private String process(String dirPath) {

@@ -36,6 +36,6 @@ public class CommandDictionaryServiceImpl implements CommandDictionaryService {
             return commandDictionary.get(commandParts[0]).processCommand(command);
         }
 
-        return "Ошбочная команда";
+        return "Ошибочная команда";
     }
 }
