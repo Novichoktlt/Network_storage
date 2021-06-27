@@ -7,8 +7,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.e.client.factory.Factory;
 import org.e.client.service.NetworkService;
+import org.e.domain.Command;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -46,16 +48,26 @@ public class MainController implements Initializable {
 
     public void textCommandCloud(ActionEvent event) {
         c = 1;
-        networkService.textCommandCloud(commandTextFieldCloud.getText().trim());
-        commandTextAreaCloud.clear();
+        String[] textCommand = commandTextFieldCloud.getText().trim().split("\\s", 2);
+
+        if (textCommand.length > 1){
+            String[] commandArgs = Arrays.copyOfRange(textCommand, 1, textCommand.length);
+            networkService.textCommandCloud(new Command(textCommand[0], commandArgs));
+            commandTextAreaCloud.clear();
+        }
 
     }
 
     public void textCommandClient(ActionEvent event) {
         c = 2;
-        networkService.textCommandClient(commandTextFieldClient.getText().trim());
-        commandTextAreaClient.clear();
 
+        String[] textCommand = commandTextFieldClient.getText().trim().split("\\s", 2);
+
+        if (textCommand.length > 1) {
+            String[] commandArgs = Arrays.copyOfRange(textCommand, 1, textCommand.length);
+            networkService.textCommandClient(new Command(textCommand[0], commandArgs));
+            commandTextFieldClient.clear();
+        }
     }
 
     public void shutdown() {

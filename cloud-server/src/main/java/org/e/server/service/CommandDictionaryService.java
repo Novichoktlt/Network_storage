@@ -1,7 +1,10 @@
 package org.e.server.service;
 
+import org.e.domain.Command;
+
+
 public interface CommandDictionaryService {
 
-    String processCommand(String command);
+    String processCommand(Command command);
 
 }

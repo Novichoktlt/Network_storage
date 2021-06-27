@@ -1,9 +1,11 @@
 package org.e.client.service;
 
+import org.e.domain.Command;
+
 public interface NetworkService {
 
-    void textCommandClient(String command);
-    void textCommandCloud(String command);
+    void textCommandClient(Command command);
+    void textCommandCloud(Command command);
 
 
     String readCommandResult();

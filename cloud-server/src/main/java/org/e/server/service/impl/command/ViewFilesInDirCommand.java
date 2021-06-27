@@ -1,25 +1,22 @@
 package org.e.server.service.impl.command;
 
+import org.e.domain.Command;
 import org.e.server.service.CommandService;
 
 import java.io.File;
 
 public class ViewFilesInDirCommand implements CommandService {
     @Override
-    public String processCommand(String command) {
+    public String processCommand(Command command) {
 
-        final int requirementCountCommandPart = 2;
+        final int requirementCountArgs = 1;
 
-        String[] actualCommandParts = command.split("\\s");
-        if (actualCommandParts.length < requirementCountCommandPart) {
+
+        if (command.getArgs().length != requirementCountArgs) {
             throw new IllegalArgumentException("Команда " + getCommand() + " не правельная");
         }
-        String actualCommand = actualCommandParts[1];
-        for (int i = 2; i < actualCommandParts.length; i++) {
 
-            actualCommand = actualCommand + " " + actualCommandParts[i];
-        }
-        return process(actualCommand);
+        return process(command.getArgs()[0]);
     }
 
     private String process(String dirPath) {

@@ -1,12 +1,14 @@
 package org.e.client.service.impl;
 
+import io.netty.handler.codec.serialization.ObjectDecoderInputStream;
+import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
 import org.e.client.service.NetworkService;
+import org.e.domain.Command;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
+
 
 public class IONetworkService implements NetworkService {
 
@@ -15,8 +17,8 @@ public class IONetworkService implements NetworkService {
     private static IONetworkService instance;
 
     private static Socket socket;
-    private static DataInputStream in;
-    private static DataOutputStream out;
+    private static ObjectDecoderInputStream in;
+    private static ObjectEncoderOutputStream out;
 
     private IONetworkService() {}
 
@@ -40,8 +42,8 @@ public class IONetworkService implements NetworkService {
 
     private static void initializeIOStreams() {
         try {
-            in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());
+            in = new ObjectDecoderInputStream(socket.getInputStream());
+            out = new ObjectEncoderOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,9 +52,9 @@ public class IONetworkService implements NetworkService {
 
 
     @Override
-    public void textCommandClient(String command) {
+    public void textCommandClient(Command command) {
         try {
-            out.writeUTF(command);
+            out.writeObject(command);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,9 +62,9 @@ public class IONetworkService implements NetworkService {
     }
 
     @Override
-    public void textCommandCloud(String command) {
+    public void textCommandCloud(Command command) {
         try {
-            out.writeUTF(command);
+            out.writeObject(command);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,8 +74,9 @@ public class IONetworkService implements NetworkService {
     @Override
     public String readCommandResult() {
         try {
-            return in.readUTF();
-        } catch (IOException e) {
+
+            return (String) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException("Результат при чтении команды " + e.getMessage());
         }

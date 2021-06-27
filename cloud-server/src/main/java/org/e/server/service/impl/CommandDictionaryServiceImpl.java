@@ -1,5 +1,7 @@
 package org.e.server.service.impl;
 
+
+import org.e.domain.Command;
 import org.e.server.factory.Factory;
 import org.e.server.service.CommandDictionaryService;
 import org.e.server.service.CommandService;
@@ -29,11 +31,10 @@ public class CommandDictionaryServiceImpl implements CommandDictionaryService {
     }
 
     @Override
-    public String processCommand(String command) {
-        String[] commandParts = command.split("\\s");
+    public String processCommand(Command command) {
 
-        if(commandParts.length > 0 && commandDictionary.containsKey(commandParts[0])) {
-            return commandDictionary.get(commandParts[0]).processCommand(command);
+        if(commandDictionary.containsKey(command.getCommandName())) {
+            return commandDictionary.get(command.getCommandName()).processCommand(command);
         }
 
         return "Ошибочная команда";
