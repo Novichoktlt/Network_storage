@@ -6,10 +6,10 @@
 <AnchorPane prefHeight="340.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.e.client.controller.MainController">
    <children>
       <TextField fx:id="commandTextFieldClient" layoutX="280.0" layoutY="5.0" minWidth="-Infinity" onAction="#textCommandClient" prefHeight="25.0" prefWidth="270.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="5.0" />
-      <TextField fx:id="commandTextFieldCloud" layoutX="8.0" layoutY="5.0" minWidth="-Infinity" onAction="#textCommandCloud" prefHeight="25.0" prefWidth="270.0" AnchorPane.bottomAnchor="347.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="5.0" editable="false" />
+      <TextField fx:id="commandTextFieldCloud" editable="false" layoutX="8.0" layoutY="5.0" minWidth="-Infinity" prefHeight="25.0" prefWidth="270.0" AnchorPane.bottomAnchor="347.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="280.0" AnchorPane.topAnchor="5.0" />
       <Button layoutX="5.0" layoutY="370.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="270.0" text="Скачать" AnchorPane.bottomAnchor="5.0" />
       <Button layoutX="306.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="270.0" text="Загрузить" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-      <TextArea fx:id="commandTextAreaClient" layoutX="280.0" layoutY="35.0" minWidth="-Infinity" prefHeight="307.0" prefWidth="270.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
-      <ListView fx:id="commandListViewCloud" layoutX="5.0" layoutY="35.0" onMouseClicked="#filesListClicked" prefHeight="307.0" prefWidth="270.0" />
+      <ListView fx:id="commandListViewCloud" layoutX="5.0" layoutY="35.0" onMouseClicked="#filesListClickedCloud" prefHeight="307.0" prefWidth="270.0" />
+      <ListView fx:id="commandListViewClient" layoutX="280.0" layoutY="35.0" onMouseClicked="#filesListClickedClient" prefHeight="307.0" prefWidth="270.0" />
    </children>
 </AnchorPane>
